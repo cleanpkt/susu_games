@@ -115,7 +115,7 @@ body {
 .thumb {
   background: linear-gradient(135deg, #ffd8ec, #e6e3ff, #d7fff6);
   background-size: 180% 180%;
-  background-position: center 50%;
+  background-position: 0% 50%;
   border-bottom: 2px solid var(--win98-dark);
   display: grid;
   place-items: center;
@@ -138,6 +138,13 @@ body {
   100% { background-position: 0% 50%; }
 }
 .tile.wip:hover .thumb { animation: shimmer 2.2s ease-in-out infinite; }
+
+/* 画像の左右スクロール（ホバー中のみ連続） */
+@keyframes panX {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
 .tile-info { padding: 10px; background: var(--win98-light); }
 .tile-title { font-weight: 700; margin-bottom: 4px; }
@@ -203,11 +210,12 @@ body {
 }
 .grid .tile:nth-child(1) .thumb::after { content: ''; }
 
-/* ホバー時、画像が枠内で少しスクロールする表現（1〜3枚目） */
-.grid .tile:nth-child(1):hover .thumb,
-.grid .tile:nth-child(2):hover .thumb,
-.grid .tile:nth-child(3):hover .thumb {
-  background-position: center 42%;
+/* ホバー時、画像が枠内で左右にパン（1〜4枚目） */
+.grid .tile:nth-child(1) .thumb:hover,
+.grid .tile:nth-child(2) .thumb:hover,
+.grid .tile:nth-child(3) .thumb:hover,
+.grid .tile:nth-child(4) .thumb:hover {
+  animation: panX 8s linear infinite;
 }
 
 /* 真ん中・右のタイルにサムネ設定 */
@@ -224,6 +232,14 @@ body {
   background-position: center;
 }
 .grid .tile:nth-child(3) .thumb::after { content: ''; }
+
+/* 2列目 左のタイルにサムネ設定 */
+.grid .tile:nth-child(4) .thumb {
+  background-image: url('images/game4.png');
+  background-size: cover;
+  background-position: center;
+}
+.grid .tile:nth-child(4) .thumb::after { content: ''; }
 
 /* 2列目WIP: サムネにStill cooking + 目玉焼き */
 .tile.wip .thumb::after {
@@ -261,8 +277,8 @@ body {
   gap: 8px;
 }
 .profile .links img {
-  width: 28px;
-  height: 28px;
+  width: 24px;  /* 少し縮小 */
+  height: 24px; /* 少し縮小 */
   object-fit: cover;
   border-radius: 6px;
   border: none; /* グレー枠を削除 */
