@@ -1,0 +1,290 @@
+@font-face {
+  font-family: 'SmileySans Oblique';
+  src: url('fonts/SmileySans-Oblique.otf') format('opentype');
+  font-weight: normal;
+  font-style: oblique;
+  font-display: swap;
+}
+
+:root {
+  /* Win98系のエッジカラーは維持しつつ、色味はゆめかわパステルへ */
+  --win98-gray: #e8e8f0;
+  --win98-dark: #9fa3b8;
+  --win98-darker: #6c6f85;
+  --win98-light: #ffffff;
+  --win98-accent: #b56fff; /* タイトルバーの基調をパステルに */
+  --bg-grad-start: #ffe3f1; /* さくらピンク */
+  --bg-grad-mid: #e7e8ff;   /* ミストラベンダー */
+  --bg-grad-end: #d9fff6;   /* ミントアクア */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: 'SmileySans Oblique', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  background: radial-gradient(1200px 700px at 20% 10%, var(--bg-grad-start), transparent 60%),
+              radial-gradient(900px 600px at 80% 20%, var(--bg-grad-end), transparent 55%),
+              linear-gradient(135deg, var(--bg-grad-start), var(--bg-grad-mid) 50%, var(--bg-grad-end));
+  color: #1f2340;
+}
+
+.desktop {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.window {
+  width: min(1100px, 92vw);
+  margin: 4vh auto 0;
+  background: var(--win98-gray);
+  border: 2px solid var(--win98-dark);
+  box-shadow: inset -2px -2px 0 var(--win98-dark), inset 2px 2px 0 var(--win98-light), 2px 2px 0 var(--win98-darker);
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, #d59aff, var(--win98-accent));
+  padding: 6px 6px 6px 10px;
+  color: #fff;
+}
+
+.title {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.controls { display: flex; gap: 6px; }
+.btn {
+  width: 18px;
+  height: 18px;
+  background: var(--win98-gray);
+  border: 2px solid var(--win98-dark);
+  box-shadow: inset -2px -2px 0 var(--win98-dark), inset 2px 2px 0 var(--win98-light);
+  cursor: default;
+}
+.btn.close { background: #b70000; }
+
+.window-body {
+  padding: 12px;
+  background: var(--win98-light);
+  border-top: 2px solid var(--win98-light);
+  border-left: 2px solid var(--win98-light);
+  border-right: 2px solid var(--win98-dark);
+  border-bottom: 2px solid var(--win98-dark);
+}
+
+.hint {
+  margin: 0 0 12px;
+  color: #222;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr)); /* 3枚で改行 */
+  gap: 12px;
+}
+
+.tile {
+  display: grid;
+  grid-template-rows: 140px auto;
+  text-decoration: none;
+  color: inherit;
+  background: var(--win98-gray);
+  border: 2px solid var(--win98-dark);
+  box-shadow: inset -2px -2px 0 var(--win98-dark), inset 2px 2px 0 var(--win98-light);
+  transition: transform 160ms ease, filter 180ms ease, box-shadow 180ms ease;
+  cursor: pointer;
+}
+
+.tile:hover {
+  filter: brightness(1.04);
+  transform: translateY(-3px);
+  box-shadow: inset -2px -2px 0 var(--win98-dark), inset 2px 2px 0 var(--win98-light), 0 8px 20px rgba(181, 111, 255, 0.25);
+}
+.tile:active { transform: translate(1px, 1px); }
+
+.thumb {
+  background: linear-gradient(135deg, #ffd8ec, #e6e3ff, #d7fff6);
+  background-size: 180% 180%;
+  background-position: center 50%;
+  border-bottom: 2px solid var(--win98-dark);
+  display: grid;
+  place-items: center;
+  position: relative;
+  will-change: background-position;
+  transition: background-position 900ms ease-out;
+}
+
+.thumb::after {
+  content: 'NO IMAGE';
+  color: #5b5f80;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+/* タイルのサムネにホバーでゆるく動くグラデーション */
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.tile.wip:hover .thumb { animation: shimmer 2.2s ease-in-out infinite; }
+
+.tile-info { padding: 10px; background: var(--win98-light); }
+.tile-title { font-weight: 700; margin-bottom: 4px; }
+.tile-desc { color: #222; font-size: 0.9rem; }
+
+.statusbar {
+  display: flex;
+  gap: 10px;
+  padding: 2px 4px; /* 高さを約半分に */
+  background: var(--win98-gray);
+  border-top: 2px solid var(--win98-light);
+}
+.status-item {
+  padding: 1px 4px; /* 高さを約半分に */
+  border: 2px solid var(--win98-dark);
+  box-shadow: inset -2px -2px 0 var(--win98-dark), inset 2px 2px 0 var(--win98-light);
+  background: var(--win98-light);
+  font-size: 0.85rem;
+}
+
+.taskbar {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  background: linear-gradient(180deg, #ffffff, #f3eaff);
+  border-top: 2px solid var(--win98-light);
+  box-shadow: inset 0 2px 0 var(--win98-light);
+}
+
+.start {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--win98-gray);
+  border: 2px solid var(--win98-dark);
+  box-shadow: inset -2px -2px 0 var(--win98-dark), inset 2px 2px 0 var(--win98-light);
+  font: inherit;
+}
+
+.start-icon { font-weight: 700; }
+
+.tray {
+  margin-left: auto;
+  padding: 2px 8px;
+  border: 2px solid var(--win98-dark);
+  box-shadow: inset -2px -2px 0 var(--win98-dark), inset 2px 2px 0 var(--win98-light);
+  background: var(--win98-light);
+}
+
+/* Helper: allow custom thumbnails via background-image */
+/* 例: .tile:nth-child(1) .thumb { background-image: url('assets/game1.png'); background-size: cover; } */
+/* 左上タイルにimages/game1.pngを設定 */
+.grid .tile:nth-child(1) .thumb {
+  background-image: url('images/game1.png');
+  background-size: cover;
+  background-position: center;
+}
+.grid .tile:nth-child(1) .thumb::after { content: ''; }
+
+/* ホバー時、画像が枠内で少しスクロールする表現（1〜3枚目） */
+.grid .tile:nth-child(1):hover .thumb,
+.grid .tile:nth-child(2):hover .thumb,
+.grid .tile:nth-child(3):hover .thumb {
+  background-position: center 42%;
+}
+
+/* 真ん中・右のタイルにサムネ設定 */
+.grid .tile:nth-child(2) .thumb {
+  background-image: url('images/game2.png');
+  background-size: cover;
+  background-position: center;
+}
+.grid .tile:nth-child(2) .thumb::after { content: ''; }
+
+.grid .tile:nth-child(3) .thumb {
+  background-image: url('images/game3.png');
+  background-size: cover;
+  background-position: center;
+}
+.grid .tile:nth-child(3) .thumb::after { content: ''; }
+
+/* 2列目WIP: サムネにStill cooking + 目玉焼き */
+.tile.wip .thumb::after {
+  content: 'Still cooking 🍳';
+  color: #6a5b80;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+/* プロフィール欄 */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  margin: 6px 8px 12px;
+  background: var(--win98-light);
+  border: 2px solid var(--win98-dark);
+  box-shadow: inset -2px -2px 0 var(--win98-dark), inset 2px 2px 0 var(--win98-light);
+}
+.profile .avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--win98-dark);
+}
+.profile .who {
+  font-weight: 700;
+  margin-right: 6px;
+}
+.profile .links {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.profile .links img {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: none; /* グレー枠を削除 */
+  background: transparent;
+  transition: transform 160ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+/* プロフィールのホバー表現 */
+.profile .avatar {
+  transition: transform 160ms ease, box-shadow 180ms ease;
+}
+.profile .avatar:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(181, 111, 255, 0.25);
+}
+.profile .links img:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(181, 111, 255, 0.25);
+  filter: saturate(1.1);
+}
+
+@media (max-width: 520px) {
+  .window { width: 96vw; margin-top: 2vh; }
+  .grid { grid-template-columns: 1fr 1fr; }
+}

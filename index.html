@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>susu games</title>
+    <meta name="description" content="susu games - GitHubで作ったゲームのポートフォリオ" />
+    <link rel="preload" href="fonts/SmileySans-Oblique.otf" as="font" type="font/otf" crossorigin>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="desktop">
+      <div class="window">
+        <div class="titlebar">
+          <div class="title">susu games</div>
+          <div class="controls">
+            <button aria-label="minimize" class="btn"></button>
+            <button aria-label="maximize" class="btn"></button>
+            <button aria-label="close" class="btn close"></button>
+          </div>
+        </div>
+        <div class="window-body">
+          <p class="hint">趣味で作成したゲームの一覧です。各タイルをクリックすると作品ページへ移動します。</p>
+          <div class="grid" role="list">
+            <!-- タイル例: 画像があれば .thumb の background-image を差し替えてください -->
+            <a class="tile" role="listitem" href="https://pomo-suga-timer.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <div class="thumb" aria-hidden="true"></div>
+              <div class="tile-info">
+                <div class="tile-title">作業時間を好感度に変えろ</div>
+                <div class="tile-desc">ブラウザで遊べるミニゲーム</div>
+              </div>
+            </a>
+
+            <a class="tile" role="listitem" href="https://cookie-game-sage.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <div class="thumb" aria-hidden="true"></div>
+              <div class="tile-info">
+                <div class="tile-title">Cookie  Invaders</div>
+                <div class="tile-desc">クッキー防衛シューティング</div>
+              </div>
+            </a>
+
+            <a class="tile" role="listitem" href="https://run-chocolate.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <div class="thumb" aria-hidden="true"></div>
+              <div class="tile-info">
+                <div class="tile-title">RUN FOR CHOCOLATE!</div>
+                <div class="tile-desc">走ってチョコをゲット！</div>
+              </div>
+            </a>
+            <!-- 2列目（WIPは1枚のみ） -->
+            <a class="tile wip" role="listitem" href="#" aria-label="Still cooking">
+              <div class="thumb" aria-hidden="true"></div>
+              <div class="tile-info">
+                <div class="tile-title">Still cooking...</div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="statusbar">
+          <div class="status-item">Ready</div>
+          <div class="status-item">＠susu</div>
+        </div>
+        <div class="profile" role="contentinfo">
+          <img class="avatar" src="images/icon.png" alt="すすのアイコン" />
+          <div class="who">すす　元気にがんばるぞ</div>
+          <div class="links" aria-label="プロフィールリンク">
+            <a href="https://x.com/180ml_ggg" target="_blank" rel="noopener noreferrer" aria-label="X">
+              <img src="images/link1.png" alt="Xへのリンク" />
+            </a>
+            <a href="https://tendon-to-tendon.hatenadiary.jp/" target="_blank" rel="noopener noreferrer" aria-label="Hatena Blog">
+              <img src="images/link2.png" alt="はてなブログへのリンク" />
+            </a>
+            <a href="https://kusodream.tumblr.com/" target="_blank" rel="noopener noreferrer" aria-label="Tumblr">
+              <img src="images/link3.png" alt="Tumblrへのリンク" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <footer class="taskbar">
+        <button class="start">
+          <span class="start-icon" aria-hidden="true">■</span>
+          Start
+        </button>
+      </footer>
+    </div>
+  </body>
+  </html>
