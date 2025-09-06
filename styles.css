@@ -131,6 +131,11 @@ body {
   letter-spacing: 1px;
 }
 
+/* 画像が設定されている場合は NO IMAGE を非表示 */
+.thumb.has-image::after {
+  content: '';
+}
+
 /* タイルのサムネにホバーでゆるく動くグラデーション */
 @keyframes shimmer {
   0% { background-position: 0% 50%; }
